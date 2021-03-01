@@ -1,4 +1,5 @@
 #Spring boot 学习
+index.html 搭建导航栏
 
 #资料
 https://spring.io/guides/gs/serving-web-content/
