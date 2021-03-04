@@ -17,7 +17,7 @@ public class AuthorizCpontroller {
     private String clientid;
     @Value("${github.client.secret}")
     private String clientsecret;
-    @Value("${github.client.uri}")
+    @Value("${github.redirect.uri}")
     private String clienturi;
     @GetMapping("/callback")
 public String callback(@RequestParam(name="code") String code,
