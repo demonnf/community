@@ -1,5 +1,7 @@
 package com.example.community.controller;
 
+import com.example.community.Mapper.UserMapper;
+import com.example.community.Model.User;
 import com.example.community.Provider.GithubProvider;
 import com.example.community.dto.AccessTokenDTO;
 import com.example.community.dto.GithubUser;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.http.HttpRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizCpontroller {
@@ -22,6 +25,8 @@ public class AuthorizCpontroller {
     private String clientsecret;
     @Value("${github.redirect.uri}")
     private String clienturi;
+    @Autowired
+     private UserMapper userMapper;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -34,10 +39,17 @@ public class AuthorizCpontroller {
         accessTokenDTO.setState(state);
         accessTokenDTO.setRedirect_uri(clienturi);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
-        GithubUser user = githubProvider.getUser(accessToken);
-        if (user != null) {
+        GithubUser githubUser = githubProvider.getUser(accessToken);
+        if (githubUser != null) {
 //      如果成功设置session cookie
-            httpRequest.getSession().setAttribute("user",user);
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(githubUser.getName());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setGmtcreate(System.currentTimeMillis());
+            user.setGmtmodifie(user.getGmtcreate());
+            userMapper.insert(user);
+            httpRequest.getSession().setAttribute("user",githubUser);
             return "redirect:/";
         } else {
 //      登陆失败重新登陆
