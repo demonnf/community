@@ -51,7 +51,7 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
             <hr>
-            <form action="">
+            <form action="/publish" method="post">
                 <div class="form-group">
                     <label for="title">问题描述（简明扼要）</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="问题标题...">
@@ -64,6 +64,7 @@
                     <label for="tag">添加标签：</label>
                     <input type="text" class="form-control" name="tag" id="tag" placeholder="输入标签，以，分隔">
                 </div>
+                <span class="alert alert-danger" role="alert" th:if="${session.user==null}">用户未登录</span>
                 <button class="btn btn-success btn-publish" type="submit">发布</button>
             </form>
 
