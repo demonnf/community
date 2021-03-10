@@ -61,10 +61,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
+
+
 
 
     </dependencies>
@@ -81,7 +79,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>7.6.0</version>
                 <configuration>
-                    <url>jdbc:h2:~/community_test</url>
+                    <url>jdbc:h2:~/test</url>
                     <user>sa</user>
                     <password>123</password>
                 </configuration>
