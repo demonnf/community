@@ -34,6 +34,18 @@ public class PublishController {
             HttpServletRequest httpServletRequest,
             Model model
     ) {
+        model.addAttribute("title",title);
+        model.addAttribute("description",description);
+        model.addAttribute("tag",tag);
+        if(title==null){
+            model.addAttribute("error", "标题不能为空");
+            return "publish";
+        }
+        if(description==null){
+            model.addAttribute("error", "标题不能为空");
+            return "publish";
+        }
+
         Question question = new Question();
         question.setTitle(title);
         question.setTag(tag);
