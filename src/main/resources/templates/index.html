@@ -27,7 +27,7 @@
                 <button type="submit" class="btn btn-default">Search</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user==null}">
+                <li th:if="${session.user!=null}">
                     <a href="/publish">发布</a>
                 </li>
                 <li th:if="${session.user==null}"><a href="https://github.com/login/oauth/authorize?client_id=39aa3b52606aa47cddeb&redirect_uri=http://localhost:8088/callback&scope=user&state=1">login</a></li>

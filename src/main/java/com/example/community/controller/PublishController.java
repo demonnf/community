@@ -46,11 +46,6 @@ public class PublishController {
             return "publish";
         }
 
-        Question question = new Question();
-        question.setTitle(title);
-        question.setTag(tag);
-        ;
-        question.setDescription(description);
         User user = null;
         Cookie[] cookies = httpServletRequest.getCookies();
         for (Cookie cookie : cookies) {
@@ -67,8 +62,12 @@ public class PublishController {
             model.addAttribute("error", "用户未登陆");
             return "publish";
         }
-        question.setGmt_create(System.currentTimeMillis());
-        question.setGmt_modified(question.getGmt_create());
+        Question question = new Question();
+        question.setTitle(title);
+        question.setTag(tag);
+        question.setDescription(description);
+        question.setGmtcreate(System.currentTimeMillis());
+        question.setGmtmodified(question.getGmtcreate());
         question.setCreator(user.getId());
         questionMapper.Create(question);
         return "redirect:/";

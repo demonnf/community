@@ -1,11 +1,13 @@
 package com.example.community.Model;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     private Integer id;
     private String title;
     private String description;
-    private long gmt_create;
-    private long gmt_modified;
+    private long gmtcreate;
+    private long gmtmodified;
     private Integer creator;
     private Integer comment_count;
     private Integer view_count;
@@ -36,20 +38,20 @@ public class Question {
         this.description = description;
     }
 
-    public long getGmt_create() {
-        return gmt_create;
+    public long getGmtcreate() {
+        return gmtcreate;
     }
 
-    public void setGmt_create(long gmt_create) {
-        this.gmt_create = gmt_create;
+    public void setGmtcreate(long gmtcreate) {
+        this.gmtcreate = gmtcreate;
     }
 
-    public long getGmt_modified() {
-        return gmt_modified;
+    public long getGmtmodified() {
+        return gmtmodified;
     }
 
-    public void setGmt_modified(long gmt_modified) {
-        this.gmt_modified = gmt_modified;
+    public void setGmtmodified(long gmtmodified) {
+        this.gmtmodified = gmtmodified;
     }
 
     public int getCreator() {
