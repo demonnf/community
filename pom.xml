@@ -61,8 +61,13 @@
             <artifactId>h2</artifactId>
             <version>1.4.196</version>
         </dependency>
-
-
+<!--引入Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

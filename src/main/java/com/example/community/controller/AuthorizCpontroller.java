@@ -46,6 +46,7 @@ public class AuthorizCpontroller {
 //      如果成功设置session cookie
             User user = new User();
             String token = UUID.randomUUID().toString();
+            user.setAvatarurl(githubUser.getAvatar_url());
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));

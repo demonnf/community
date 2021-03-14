@@ -1,10 +1,10 @@
-package com.example.community.Model;
+package com.example.community.dto;
 
+import com.example.community.Model.User;
 import lombok.Data;
 
-import java.io.Serializable;
 @Data
-public class Question implements Serializable {
+public class QuestionDTO {
     private Integer id;
     private String title;
     private String description;
@@ -15,5 +15,6 @@ public class Question implements Serializable {
     private Integer view_count;
     private Integer like_count;
     private String tag;
+    private User user;
 
 }
