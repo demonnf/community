@@ -11,9 +11,9 @@ public class Question implements Serializable {
     private long gmtcreate;
     private long gmtmodified;
     private Integer creator;
-    private Integer comment_count;
-    private Integer view_count;
-    private Integer like_count;
+    private Integer commentcount;
+    private Integer viewcount;
+    private Integer likecount;
     private String tag;
 
 }

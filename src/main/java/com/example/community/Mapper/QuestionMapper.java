@@ -13,5 +13,5 @@ public interface QuestionMapper {
             "values (#{title},#{description},#{gmtcreate},#{gmtmodified},#{creator},#{tag})")
       void Create(Question question);
    @Select("select * from question")
-    List<Question> list();
+    List<Question> findlist();
 }

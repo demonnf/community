@@ -13,6 +13,6 @@ public interface UserMapper {
      void insert(User user);
     @Select("select * from USER where TOKEN=#{token}")
     User findbytoken(@Param("token") String token);
-    @Select("select * from user where id=#{creater}")
-    User findbyid(Integer creator);
+    @Select("select * from user where id=#{id}")
+    User findbyid(@Param("id") Integer id);
 }
