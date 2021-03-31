@@ -17,24 +17,12 @@ public class PaginationDTO {
     private Integer totalpage;
 
 
-    public void setpagination(Integer totalcount, Integer page, Integer size) {
+    public void setpagination(Integer totalpage, Integer page, Integer size) {
 
-
-//     算出总页数
-        if (totalcount % size == 0) {
-            totalpage = totalcount / size;
-        } else {
-            totalpage = (totalcount / size) + 1;
-        }
-        if(page<1){
-            page=1;
-        }
-        if(page>totalpage){
-            page=totalpage;
-        }
-
+        this.page=page;
+        this.totalpage=totalpage;
         pages.add(page);
-         this.page=page;
+
 //        页面集合所需要展示的页面数
         for (int i = 1; i <= 3; i++) {
             if (page - i > 0) {

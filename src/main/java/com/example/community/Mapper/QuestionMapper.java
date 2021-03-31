@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ public interface QuestionMapper {
     List<Question> findlist(@Param(value = "offset") Integer offset,@Param(value = "size") Integer size);
 @Select("select count(1) from question")
     Integer count();
+@Select("select count(1) from question where creator=#{id}")
+    Integer questioncount(@Param(value = "id") Integer id);
+    @Select("select * from question where creator=#{id} limit #{offset},#{size} ")
+    List<Question> findlistbyuserid(@Param(value = "offset") Integer offset, @Param(value = "size") Integer size ,@Param(value="id") Integer id);
 }
