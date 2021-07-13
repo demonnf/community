@@ -17,33 +17,19 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class mycenterController {
-    @Autowired
-    public UserMapper userMapper;
+
     @Autowired
     public QuestionService questionService;
 
-    @GetMapping("/publish/{action}")
+    @GetMapping("/profile/{action}")
     public String PersonalMessage(
             @PathVariable(name = "action") String action,
             Model model,
             HttpServletRequest httpServletRequest,
             @RequestParam(value = "page", defaultValue = "1") Integer page,
             @RequestParam(value = "size", defaultValue = "5") Integer size) {
-        Cookie[] cookies = httpServletRequest.getCookies();
-        User user = null;
-        if (cookies != null && cookies.length != 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userMapper.findbytoken(token);
-                    if (user != null) {
-                        httpServletRequest.getSession().setAttribute("user", user);
-                    }
-                    break;
-                }
-            }
-        }
-        if (user == null) {
+        User user = (User)httpServletRequest.getSession().getAttribute("user");
+        if(user==null){
             return "redirect:/";
         }
         if ("question".equals(action)) {

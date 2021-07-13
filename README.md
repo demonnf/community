@@ -9,3 +9,4 @@ index.html 搭建导航栏
 ##工具
 git
 bootstrap
+mybatis run command :mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate

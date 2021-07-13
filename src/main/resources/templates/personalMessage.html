@@ -10,48 +10,7 @@
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">demon社区</span>
-            </button>
-            <a class="navbar-brand" href="/">demon社区</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Search</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user!=null}">
-                    <a href="/publish">发布</a>
-                </li>
-                <li th:if="${session.user==null}"><a
-                        href="https://github.com/login/oauth/authorize?client_id=39aa3b52606aa47cddeb&redirect_uri=http://localhost:8088/callback&scope=user&state=1">login</a>
-                </li>
-                <li class="dropdown" th:if="${session.user!=null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        <span th:text="${session.user.getName()}"></span>
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">message center</a></li>
-                        <li><a href="#">personal information</a></li>
-                        <li><a href="#">sign out</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+<div th:insert="~{nav :: nav}"></div>
 <div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
@@ -62,41 +21,42 @@
             <div class="media" th:each="question:${pagination.getQuestions()}">
                 <div class="media-left">
                     <a href="">
-                        <img class="media-object img-rounded" th:src="${question.user.getAvatarurl()}" alt="...">
+                        <img class="media-object img-rounded" th:src="${question.user.getAvatarUrl()}" alt="...">
                     </a>
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
                     <span th:text="${question.getDescription()}"></span><br>
-                    <span class="text_spec"><span th:text="${question.getCommentcount()}"></span>个回复 . <span
-                            th:utext="${question.getViewcount()}"></span>次浏览. <span
-                            th:text="${#dates.format(question.getGmtcreate(),'dd-MM-yyyy')}"></span></span>
+                    <span class="text_spec"><span th:text="${question.commentcount}"></span>个回复 . <span
+                            th:text="${question.viewcount}"></span>次浏览. <span
+                            th:text="${#dates.format(question.gmtcreate,'dd-MM-yyyy')}"></span>
+                    </span>
                 </div>
             </div>
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li>
-                        <a th:href="@{'/publish/'+${section}(page=1)}" aria-label="Previous" th:if="${pagination.showfirstpage}">
+                        <a th:href="@{'/profile/'+${section}(page=1)}" aria-label="Previous" th:if="${pagination.showfirstpage}">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href="@{'/publish/'+${section}(page=${pagination.page}-1)}" aria-label="Previous"
+                        <a th:href="@{'/profile/'+${section}(page=${pagination.page}-1)}" aria-label="Previous"
                            th:if="${pagination.showprevious}">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page:${pagination.getPages()}" th:class="${pagination.page==page}?'active':' '">
-                        <a th:href="@{'/publish/'+${section}(page=${page})}" th:text="${page}"></a>
+                        <a th:href="@{'/profile/'+${section}(page=${page})}" th:text="${page}"></a>
                     </li>
                     <li>
-                        <a th:href="@{'/publish/'+${section}(page=${pagination.page}+1)}" aria-label="Next"
+                        <a th:href="@{'/profile/'+${section}(page=${pagination.page}+1)}" aria-label="Next"
                            th:if="${pagination.shownextpage}">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:href=" @{'/publish/'+${section}(page=${pagination.getTotalpage()})}" aria-label="Next"
+                        <a th:href=" @{'/profile/'+${section}(page=${pagination.getTotalpage()})}" aria-label="Next"
                            th:if="${pagination.showendpage}">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
@@ -108,9 +68,9 @@
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <ul class="list-group question_message">
-                <a href="/publish/question"
+                <a href="/profile/question"
                    th:class="${section=='question'}? 'active list-group-item' :'list-group-item'">我的问题</a>
-                <a href="/publish/replies"
+                <a href="/profile/replies"
                    th:class="${section=='replies'}? 'active list-group-item' :'list-group-item'">
                     <span class="badge">14</span>
                  我的回复

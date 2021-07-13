@@ -3,6 +3,7 @@ package com.example.community.controller;
 import com.example.community.Mapper.UserMapper;
 import com.example.community.Model.User;
 import com.example.community.Provider.GithubProvider;
+import com.example.community.Service.Userservice;
 import com.example.community.dto.AccessTokenDTO;
 import com.example.community.dto.GithubUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.UUID;
 
 @Controller
@@ -28,7 +30,7 @@ public class AuthorizCpontroller {
     @Value("${github.redirect.uri}")
     private String clienturi;
     @Autowired
-     private UserMapper userMapper;
+     private Userservice userservice;
 
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -46,13 +48,11 @@ public class AuthorizCpontroller {
 //      如果成功设置session cookie
             User user = new User();
             String token = UUID.randomUUID().toString();
-            user.setAvatarurl(githubUser.getAvatar_url());
+            user.setAvatarUrl(githubUser.getAvatar_url());
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtcreate(System.currentTimeMillis());
-            user.setGmtmodifie(user.getGmtcreate());
-            userMapper.insert(user);
+            userservice.createorupdate(user);
             Cookie cookie=new Cookie("token", token);
             httpServletResponse.addCookie(cookie);
             return "redirect:/";
@@ -62,4 +62,14 @@ public class AuthorizCpontroller {
         }
 
     }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest httpServletRequest,
+                         HttpServletResponse httpServletResponse){
+        httpServletRequest.getSession().removeAttribute("user");
+        Cookie cookie=new Cookie("token", null);
+        cookie.setMaxAge(0);
+        httpServletResponse.addCookie(cookie);
+        return "redirect:/";
+    }
+
 }
