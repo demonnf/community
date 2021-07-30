@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface QuestionEXTMapper {
     int  incview( Question question);
+    int  incCommentcount( Question question);
 }

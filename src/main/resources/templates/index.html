@@ -9,6 +9,15 @@
     <script src="/js/jquery-3.6.0.min.js" type="application/javascript"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
 </head>
+<script type="application/javascript">
+    window.onload=function (){
+        var clear=window.localStorage.getItem("clearitem")
+        if(clear=="true"){
+            window.close()
+            window.localStorage.removeItem("clearitem")
+        }
+    }
+</script>
 <body>
 <div th:insert="~{nav :: nav}"></div>
 <div class="container-fluid main">
@@ -24,10 +33,10 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading" >
-                        <a th:href="@{'/question/'+${question.getId()}}" th:text="${question.getTitle()}"></a>
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.getTitle()}"></a>
                     </h4>
                     <span th:text="${question.getDescription()}"></span><br>
-                    <span class="text_spec"><span th:text="${question.commentcount}"></span>个回复 . <span th:text="${question.viewcount}"></span>次浏览. <span th:text="${#dates.format(question.getGmtcreate(),'dd-MM-yyyy')}"></span></span>
+                    <span class="text_spec"><span th:text="${question.commentCount}"></span>个回复 . <span th:text="${question.viewCount}"></span>次浏览. <span th:text="${#dates.format(question.gmtCreate,'dd-MM-yyyy')}"></span></span>
                 </div>
             </div>
             <nav aria-label="Page navigation">

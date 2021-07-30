@@ -27,9 +27,9 @@
                 <div class="media-body">
                     <h4 class="media-heading" th:text="${question.getTitle()}"></h4>
                     <span th:text="${question.getDescription()}"></span><br>
-                    <span class="text_spec"><span th:text="${question.commentcount}"></span>个回复 . <span
-                            th:text="${question.viewcount}"></span>次浏览. <span
-                            th:text="${#dates.format(question.gmtcreate,'dd-MM-yyyy')}"></span>
+                    <span class="text_spec"><span th:text="${question.commentCount}"></span>个回复 . <span
+                            th:text="${question.viewCount}"></span>次浏览. <span
+                            th:text="${#dates.format(question.gmtCreate,'dd-MM-yyyy')}"></span>
                     </span>
                 </div>
             </div>

@@ -1,12 +1,12 @@
 package com.example.community.Service;
+
+import com.example.community.Enum.CommentTypeEnum;
 import com.example.community.Mapper.QuestionEXTMapper;
+import com.example.community.Model.*;
+import com.example.community.dto.ResoultEXDTO;
 import com.example.community.exception.CustomErrorCode;
 import com.example.community.Mapper.QuestionMapper;
 import com.example.community.Mapper.UserMapper;
-import com.example.community.Model.Question;
-import com.example.community.Model.QuestionExample;
-import com.example.community.Model.User;
-import com.example.community.Model.UserExample;
 import com.example.community.dto.PaginationDTO;
 import com.example.community.dto.QuestionDTO;
 import com.example.community.exception.CustomErrorCode;
@@ -18,13 +18,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
     @Autowired
     private QuestionMapper questionMapper;
     @Autowired
-   private UserMapper userMapper;
+    private UserMapper userMapper;
     @Autowired
     QuestionEXTMapper questionEXTMapper;
 
@@ -67,7 +69,7 @@ public class QuestionService {
 
     }
 
-    public PaginationDTO questionlist(Integer page, Integer size, Integer id) {
+    public PaginationDTO questionlist(Integer page, Integer size, Long id) {
         Integer totalpage;
         PaginationDTO paginationDTO = new PaginationDTO();
         QuestionExample questionExample = new QuestionExample();
@@ -109,9 +111,9 @@ public class QuestionService {
 
     }
 
-    public QuestionDTO findbyid(Integer id) throws ClassCastException {
+    public QuestionDTO findbyid(Long id) throws ClassCastException {
         Question question = questionMapper.selectByPrimaryKey(id);
-        if(question==null){
+        if (question == null) {
             throw new CustomException(CustomErrorCode.QUESTION_NOT_FOUND);
         }
         QuestionDTO questionDTO = new QuestionDTO();
@@ -130,7 +132,7 @@ public class QuestionService {
             question.setGmtModified(question.getGmtCreate());
             question.setViewCount(1);
             question.setLikeCount(1);
-            question.setCommentCount(1);
+            question.setCommentCount(0);
             question.setId(question.getId());
             questionMapper.insert(question);
         } else {
@@ -144,7 +146,7 @@ public class QuestionService {
             example.createCriteria()
                     .andIdEqualTo(question.getId());
             int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
-            if(updated!=1){
+            if (updated != 1) {
                 throw new CustomException(CustomErrorCode.QUESTION_NOT_FOUND);
             }
 
@@ -152,12 +154,14 @@ public class QuestionService {
 
     }
 
-    public void incview(Integer id) {
+    public void incview(Long id) {
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);
         questionEXTMapper.incview(question);
 
     }
+
+
 }
 

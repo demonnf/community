@@ -28,3 +28,34 @@ body{
 .jumbotron{
     margin: 70px;
 }
+.submit-button{
+    float: right;
+    margin-top: 25px;
+}
+.comment_enum.comment_text{
+    margin-bottom:5px ;
+}
+.comment_enum.enum_btn{
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.comment_enum.enum_btn:hover{
+    color: #499ef3;
+}
+.comment_enum{
+    color: #999;
+    margin-top: 5px;
+}
+.comment_enum.active{
+    color: #499ef3;
+}
+.commet_body{
+    margin-bottom: 15px;
+    border-bottom:1px solid;
+    border-color:#9999;
+    padding: 5px;
+}
+.date_btn{
+    float: right;
+}
